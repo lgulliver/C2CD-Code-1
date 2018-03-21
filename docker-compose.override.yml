@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  winestoreweb:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "17400:80"
+
+  winestoreapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "17500:80"
+
+  winestoreinventory:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "17600:80"
+
+  winestoretrolley:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "17700:80"

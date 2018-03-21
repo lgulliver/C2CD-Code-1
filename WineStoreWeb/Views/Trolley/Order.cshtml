@@ -1,0 +1,36 @@
+﻿@using WineStoreShared
+@model WineStoreWeb.Models.TrolleyViewModel
+
+@{
+    ViewData["Title"] = "Order for " + ViewData["CustomerEMail"];
+}
+<h2>@ViewData["Title"]</h2>
+
+@if((bool)ViewData["OrderBool"] == true) {
+    <div style="margin: 5px; padding: 10px; background-color: #99ff99; padding-top:10px; padding-bottom:2px">
+	    <p>@ViewData["OrderResult"]</p>
+    </div>
+} else {
+    <div style="margin: 5px; padding: 10px; background-color: #ff9999; padding-top:10px; padding-bottom:2px;">
+	    <p>@ViewData["OrderResult"]</p>
+    </div>
+}
+
+@if(Model.TrolleyItemsToDisplay.Keys.Count > 0) {
+    <table>
+    @foreach(WineItem wine in Model.TrolleyItemsToDisplay.Keys) {
+        <tr>
+        <td width="100">@Model.TrolleyItemsToDisplay[wine] x</td>
+        <td><img src="@wine.WinePicture" alt="@wine.WineType:@wine.WineId" width="75" /></td>
+        <td width="300"><p> @Html.DisplayFor(item => wine.WineName) </p></td>
+        <td><p style="font-size: 8pt;"> @Html.DisplayFor(item => wine.WineInfo) </p></td>
+            <td width="150">
+                <p><i>&#163; @String.Format("{0:N2}", wine.WinePrice) </i>per item</p>
+                <p><b>&#163; @String.Format("{0:N2}", (Model.TrolleyItemsToDisplay[wine] * wine.WinePrice)) </b> in total</p>
+
+            </td>
+        </tr>
+    }
+    </table>
+    <h3>Order Total: &#163; @ViewData["Total"]</h3>
+}

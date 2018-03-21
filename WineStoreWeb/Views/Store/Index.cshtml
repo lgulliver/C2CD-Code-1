@@ -1,0 +1,43 @@
+﻿@using WineStoreShared
+@model WineStoreWeb.Models.StoreViewModel
+
+@{
+    ViewData["Title"] = "Store";
+}
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.WinesToDisplay.Count > 0) {
+    <table>
+    @foreach(WineItem wine in Model.WinesToDisplay) {
+    	<tr>
+        <td><img src="@wine.WinePicture" alt="@wine.WineType:@wine.WineId" width="200" /></td>
+        <td width="200"><p> @Html.DisplayFor(item => wine.WineName) </p></td>
+        <td><p> @Html.DisplayFor(item => wine.WineInfo) </p></td>
+    		<td width="150">
+    			<p>&#163; @String.Format("{0:N2}", wine.WinePrice)</p>
+            	@if(wine.WineInStock > 0) {
+                    <p><b>In Stock</b></p>  
+    			    <p><a href="javascript:AddToTrolley('@wine.WineType:@wine.WineId')">Add to Trolley</a></p>
+    			} else {
+                    <p><i>Out of stock</i></p>
+            	}
+    			
+
+    		</td>
+    	</tr>
+    }
+    </table>
+} else {
+    <p>It looks like there are no items in our online inventory. Please give us a call, and we'll be more than happy to help you. This will also allow us to update our online inventory in due course.</p>
+}
+
+<script language="javascript" type="text/javascript" >
+
+function AddToTrolley(typeAndIdString) {
+    $.ajax({
+        url: ("/Store/AddToTrolley?typeAndIdString=" + typeAndIdString + "&randomNumber=" + Math.floor((Math.random() * 10000) + 1))})
+	.done(function( data ) {
+        document.getElementById('trolleyItems').innerHTML = data;
+    });
+}
+</script>

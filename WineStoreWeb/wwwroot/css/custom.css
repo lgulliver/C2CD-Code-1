@@ -1,0 +1,15 @@
+﻿body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.carousel-caption, .carousel-indicators {
+    text-shadow: 1px 1px 15px black, -1px -1px 15px black, 1px 0px 10px black, 0px 1px 10px black;
+}
+
+td {
+    padding: 1em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc;
+}
+
